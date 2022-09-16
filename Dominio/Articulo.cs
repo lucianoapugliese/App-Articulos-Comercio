@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
-    internal class Articulo
+    public class Articulo
     {
         // Atributos:
         public int _codArticulo { get; set; }
