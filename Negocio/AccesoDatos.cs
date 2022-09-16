@@ -20,15 +20,16 @@ namespace Negocio
         }
 
         // -- CONSTRUCTOR --
-        AccesoDatos( string conexionString = "server=.\\SQLEXPRESS; database = CATALOGO_DB; integrated security = true" )
+        
+        public AccesoDatos(string cadenaConexion = "server=.; database = CATALOGO_DB; integrated security = true")
         {
-            _conexion = new SqlConnection(conexionString);
+            _conexion = new SqlConnection(cadenaConexion);
             _command = new SqlCommand();
         }
 
         // -- METODOS --
         // SetQuery:
-        public void setQuery(string query)
+        public void setearQuery(string query)
         {
             _command.CommandType = System.Data.CommandType.Text;
             _command.CommandText = query;
@@ -40,6 +41,7 @@ namespace Negocio
             _command.Connection = _conexion;
             try
             {
+                // Traemos un grupo de datos de la BD y colocamos en un SqlDatareader
                 _conexion.Open();
                 _reader = _command.ExecuteReader();
             }

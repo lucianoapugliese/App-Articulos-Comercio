@@ -87,6 +87,10 @@
       <Project>{a6185921-7bdb-4faa-b278-3efe794a2509}</Project>
       <Name>Dominio</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Negocio\Negocio.csproj">
+      <Project>{70b4c768-375f-4f12-b187-1a3439ceb837}</Project>
+      <Name>Negocio</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
