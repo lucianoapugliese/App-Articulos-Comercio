@@ -9,14 +9,15 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Dominio;
 
+
 namespace TP_WinForm
 {
     public partial class Form1 : Form
     {
+        // Form Principal
         public Form1()
         {
             InitializeComponent();
         }
-
     }
 }
