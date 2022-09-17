@@ -13,30 +13,54 @@ using Negocio;
 
 namespace TP_WinForm
 {
+    // -- FORM MAIN --
     public partial class Form1 : Form
     {
-        // Form Principal
+        //CONSTRUCTOR:
         public Form1()
         {
             InitializeComponent();
         }
 
-        // ATRIBUTOS:
+        //ATRIBUTOS:
         public List<Articulo> lista;
 
+        //METODOS:
+        // Load:
         private void Form1_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                actualizarGridView();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        // Actulizar GridView:
+        public void actualizarGridView()
         {
             try
             {
                 NegocioArticulo negocioArticulo = new NegocioArticulo();
                 lista = negocioArticulo.listarArticulos();
-                dataGridView1.DataSource = lista;
-                dataGridView1.Columns["_codArticulo"].HeaderText = "Articulo"; // Cambiamos el nombre de la columna
+                dgbArticulos.DataSource = lista;
+                dgbArticulos.Columns["_codArticulo"].HeaderText = "CODIGO";
+                dgbArticulos.Columns["_categoria"].HeaderText = "CATEGORIA";
+                dgbArticulos.Columns["_marca"].HeaderText = "MARCA";
+                dgbArticulos.Columns["_nombre"].HeaderText = "NOMBRE";
+                dgbArticulos.Columns["_descripcion"].HeaderText = "DESCRIPCION";
+                dgbArticulos.Columns["_precio"].HeaderText = "PRECIO";
+                dgbArticulos.Columns["_urlImagen"].Visible = false;
+                dgbArticulos.Columns["_Id"].Visible = false;
             }
             catch (Exception ex)
-            { 
-                MessageBox.Show(ex.ToString());
+            {
+                throw ex;
             }
         }
-    }
+
+    }// Fin Form1
 }

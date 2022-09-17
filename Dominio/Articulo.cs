@@ -10,12 +10,13 @@ namespace Dominio
     {
         // ATRIBUTOS:
         public string _codArticulo { get; set; }
+        public Elemento _categoria { get; set; }
+        public Elemento _marca { get; set; }
         public string _nombre { get; set; } 
         public string _descripcion { get; set; }
         public string _urlImagen { get; set; }
         public decimal _precio { get; set; }
-        public Elemento _categoria;
-        public Elemento _marca;
+        public int _Id { get; set; }
 
         // CONSTRUCTOR:
         public Articulo()
@@ -25,6 +26,5 @@ namespace Dominio
         }
 
         // METODOS:
-
     }
 }
