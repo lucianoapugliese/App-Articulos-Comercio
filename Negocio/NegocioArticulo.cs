@@ -60,6 +60,14 @@ namespace Negocio
             try
             {
                 _accesoDatos.setearQuery($"INSERT INTO ARTICULOS VALUES ('{art._codArticulo}','{art._nombre}', '{art._descripcion}', {art._marca._Id}, {art._categoria._Id}, '{art._urlImagen}', {art._precio})");
+                //_accesoDatos.setearQuery($"INSERT INTO ARTICULOS VALUES (@codart, @nombre, @descripcion, @idMarca, @idCategoria, @urlImg, @precio)");
+                //_accesoDatos.setearParametro("@codart", art._codArticulo);
+                //_accesoDatos.setearParametro("@nombre", art._nombre);
+                //_accesoDatos.setearParametro("@descripcion", art._descripcion);
+                //_accesoDatos.setearParametro("@idMarca", art._marca._Id);
+                //_accesoDatos.setearParametro("@idCategoria", art._categoria._Id);
+                //_accesoDatos.setearParametro("@urlImg", art._urlImagen);
+                //_accesoDatos.setearParametro("@precio", art._precio);
                 _accesoDatos.ejecutarQuery();
             }
             catch (Exception ex)
@@ -78,7 +86,7 @@ namespace Negocio
             _accesoDatos = new AccesoDatos();
             try
             {
-                _accesoDatos.setearQuery($"UPDATE ARTICULOS SET Codigo = '{art._codArticulo}', Nombre = '{art._nombre}', Descripcion = '{art._descripcion}', IdMarca = {art._marca._Id}, IdCategoria = {art._categoria._Id}, ImagenUrl = '{art._urlImagen}', Precio = {art._precio} WHERE Id = {art._Id}");
+                _accesoDatos.setearQuery($"UPDATE ARTICULOS SET Codigo = '{art._codArticulo}', Nombre = '{art._nombre}', Descripcion = '{art._descripcion}', IdMarca = {art._marca._Id}, IdCategoria = {art._categoria._Id}, ImagenUrl = '{art._urlImagen}', Precio = {art._precio}, Activo = 1 WHERE Id = {art._Id}");
                 _accesoDatos.ejecutarQuery();
             }
             catch (Exception ex)
@@ -92,21 +100,12 @@ namespace Negocio
         }
 
         // Eliminar Articulo:
-        public void eliminarArticulo(int id, bool flag)
+        public void eliminarArticulo(int id)
         {
             _accesoDatos = new AccesoDatos();
             try
             {
-                if(flag)
-                {
-                    //Eliminacion logica
-                    _accesoDatos.setearQuery($"UPDATE ARTICULOS SET Activo = 0 WHERE Id = {id}");
-                }
-                else
-                {
-                    //Eliminacion fisica
-                    _accesoDatos.setearQuery($"DELETE FROM ARTICULOS WHERE Id = {id}");
-                }
+                _accesoDatos.setearQuery($"DELETE FROM ARTICULOS WHERE Id = {id}");
                 _accesoDatos.ejecutarQuery();
             }
             catch (Exception ex)

@@ -27,6 +27,8 @@ namespace TP_WinForm
         private List<Elemento> listaElementos;
         private NegocioArticulo negocioArticulo;
         private Articulo articulo;
+        private List<Articulo> listAux;
+        private string filtro;
 
         //METODOS:
         // Load:
@@ -42,7 +44,79 @@ namespace TP_WinForm
             }
         }
 
-        // Actulizar GridView:
+        // Evento Selecionar una fila:
+        private void dgvArticulos_SelectionChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                articulo = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+                cargarImagen(articulo._urlImagen);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+
+        }
+       
+        // Evento Boton Eliminar:
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            eliminar();
+        }
+
+        // Evento Boton Agregar:
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            frmAltaArticulo frmAltaArticulo = new frmAltaArticulo();
+            frmAltaArticulo.ShowDialog();
+            actualizarGridView();
+        }
+
+        // Evento Boton Modificar:
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            // falta formulario de datos
+        }
+        
+        // Evento Cambio texto en caja de busqueda rapida:
+        private void tbxFiltroRapido_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                filtrarRapido();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        // Metodo filtrarRapido:
+        public void filtrarRapido()
+        {
+            filtro = tbxFiltroRapido.Text;
+            try
+            {
+                if(filtro.Length > 2)
+                {
+                    listAux = listaArticulos.FindAll(itm => itm._nombre.ToUpper().Contains(filtro.ToUpper()) || itm._codArticulo.ToUpper().Contains(filtro.ToUpper()));
+                }
+                else
+                { 
+                    listAux = listaArticulos;
+                }
+                dgvArticulos.DataSource = null;
+                dgvArticulos.DataSource = listAux;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        // Metodo Actulizar GridView:
         public void actualizarGridView()
         {
             try
@@ -66,22 +140,6 @@ namespace TP_WinForm
             }
         }
 
-        // Cargar Imagen:
-        private void dgvArticulos_SelectionChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                articulo = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
-                cargarImagen(articulo._urlImagen);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-            Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
-            cargarImagen(seleccionado._urlImagen);
-        }
-
         // Metodo cargarImagen:
         private void cargarImagen(string img)
         {
@@ -99,27 +157,23 @@ namespace TP_WinForm
         public void eliminar()
         {
             articulo = new Articulo();
-
+            negocioArticulo = new NegocioArticulo();
             try
             {
                 // El MessageBox maneja estas alertas asi:
                 DialogResult respuesta = MessageBox.Show("Desea Eliminar el Pokemon seleccionado?", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
                 if (respuesta == DialogResult.Yes)
                 {
-                    
+                    articulo = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+                    negocioArticulo.eliminarArticulo(articulo._Id);
+                    MessageBox.Show("Registro Eliminado permanentemente");
+                    actualizarGridView();
                 }
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-        }
-
-        private void btnAgregar_Click(object sender, EventArgs e)
-        {
-            frmAltaArticulo frmAltaArticulo = new frmAltaArticulo();
-            frmAltaArticulo.ShowDialog();
-            actualizarGridView();
         }
     }// Fin Form1
 }
