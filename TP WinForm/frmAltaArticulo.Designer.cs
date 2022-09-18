@@ -138,6 +138,7 @@
             this.txtBoxUrlImagen.Name = "txtBoxUrlImagen";
             this.txtBoxUrlImagen.Size = new System.Drawing.Size(100, 22);
             this.txtBoxUrlImagen.TabIndex = 1;
+            this.txtBoxUrlImagen.Leave += new System.EventHandler(this.txtBoxUrlImagen_Leave);
             // 
             // txtBoxPrecio
             // 
@@ -178,6 +179,7 @@
             this.btnAceptar.TabIndex = 4;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
+            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
             // bntCancelar
             // 
@@ -187,6 +189,7 @@
             this.bntCancelar.TabIndex = 4;
             this.bntCancelar.Text = "Cancelar";
             this.bntCancelar.UseVisualStyleBackColor = true;
+            this.bntCancelar.Click += new System.EventHandler(this.bntCancelar_Click);
             // 
             // frmAltaArticulo
             // 
@@ -212,6 +215,7 @@
             this.Controls.Add(this.lblCodArticulo);
             this.Name = "frmAltaArticulo";
             this.Text = "Nuevo artículo";
+            this.Load += new System.EventHandler(this.frmAltaArticulo_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pBoxImagenArticulo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
