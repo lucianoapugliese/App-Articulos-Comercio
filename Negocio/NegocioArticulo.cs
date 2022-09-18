@@ -38,7 +38,7 @@ namespace Negocio
                     if(!(_accesoDatos._lector["Descripcion"] is DBNull))_articulo._descripcion = (string)_accesoDatos._lector["Descripcion"];
                     if (!(_accesoDatos._lector["Precio"] is DBNull)) _articulo._precio = (decimal)_accesoDatos._lector["Precio"];
                     if (!(_accesoDatos._lector["ImagenUrl"] is DBNull)) _articulo._urlImagen = (string)_accesoDatos._lector["ImagenUrl"];
-                    
+                    _articulo.redondear(2);
                     _listaArticulos.Add(_articulo);
                 }
             }
@@ -59,6 +59,7 @@ namespace Negocio
             _accesoDatos = new AccesoDatos();
             try
             {
+                art.redondear(2);
                 //_accesoDatos.setearQuery($"INSERT INTO ARTICULOS VALUES ('{art._codArticulo}','{art._nombre}', '{art._descripcion}', {art._marca._Id}, {art._categoria._Id}, '{art._urlImagen}', {art._precio})");
                 _accesoDatos.setearQuery($"INSERT INTO ARTICULOS (Codigo, Nombre, Descripcion, IdMarca, IdCategoria, ImagenUrl, Precio) VALUES ('{art._codArticulo}','{art._nombre }', '{art._descripcion }', {art._marca._Id}, {art._categoria._Id}, '{art._urlImagen}', {art._precio})");
                 //_accesoDatos.setearQuery($"INSERT INTO ARTICULOS VALUES (@codart, @nombre, @descripcion, @idMarca, @idCategoria, @urlImg, @precio)");
@@ -87,6 +88,7 @@ namespace Negocio
             _accesoDatos = new AccesoDatos();
             try
             {
+                art.redondear(0);
                 //_accesoDatos.setearQuery($"UPDATE ARTICULOS SET Codigo = '{art._codArticulo}', Nombre = '{art._nombre}', Descripcion = '{art._descripcion}', IdMarca = {art._marca._Id}, IdCategoria = {art._categoria._Id}, ImagenUrl = '{art._urlImagen}', Precio = {art._precio} WHERE Id = {art._Id}");
                 _accesoDatos.setearQuery($"UPDATE ARTICULOS SET Codigo = '{art._codArticulo}', Nombre = '{art._nombre}', Descripcion = '{art._descripcion}', IdMarca = {art._marca._Id}, IdCategoria = {art._categoria._Id}, ImagenUrl = '{art._urlImagen}', Precio = {art._precio} WHERE Id = {art._Id}");
                 _accesoDatos.ejecutarQuery();

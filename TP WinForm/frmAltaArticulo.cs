@@ -55,7 +55,7 @@ namespace TP_WinForm
                     txtBoxCodigoArticulo.Text = _articulo._codArticulo;
                     txtBoxNombre.Text = _articulo._nombre;
                     txtBoxDescripcion.Text = _articulo._descripcion;
-                    txtBoxPrecio.Text = _articulo._precio.ToString();
+                    txtBoxPrecio.Text = decimal.Round(_articulo._precio, 2).ToString();
                     txtBoxUrlImagen.Text = _articulo._urlImagen;
                     cargarImagen(_articulo._urlImagen);
                     cboBoxCategoria.SelectedValue = _articulo._categoria._Id;
@@ -80,11 +80,8 @@ namespace TP_WinForm
             _negocioArticulo = new NegocioArticulo();
             try
             {
-                if(_articulo == null)
-                {
-                    _articulo = new Articulo();
+                if(_articulo == null) _articulo = new Articulo();
 
-                }
                 _articulo._codArticulo = txtBoxCodigoArticulo.Text;
                 _articulo._descripcion = txtBoxDescripcion.Text;
                 _articulo._precio = Convert.ToDecimal(txtBoxPrecio.Text);

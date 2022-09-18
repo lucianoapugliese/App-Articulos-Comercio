@@ -16,6 +16,7 @@ namespace Dominio
         public string _descripcion { get; set; }
         public string _urlImagen { get; set; }
         public decimal _precio { get; set; }
+
         public int _Id { get; set; }
 
         // CONSTRUCTOR:
@@ -27,5 +28,9 @@ namespace Dominio
         }
 
         // METODOS:
+        public void redondear(int n)
+        {
+            _precio = decimal.Round(_precio, n);
+        }
     }
 }
