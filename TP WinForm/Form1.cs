@@ -26,6 +26,7 @@ namespace TP_WinForm
         private List<Articulo> listaArticulos;
         private List<Elemento> listaElementos;
         private NegocioArticulo negocioArticulo;
+        private Articulo articulo;
 
         //METODOS:
         // Load:
@@ -64,12 +65,13 @@ namespace TP_WinForm
                 throw ex;
             }
         }
+
         // Cargar Imagen:
         private void dgbArticulos_SelectionChanged(object sender, EventArgs e)
         {
             try
             {
-                Articulo articulo = (Articulo)dgbArticulos.CurrentRow.DataBoundItem;
+                articulo = (Articulo)dgbArticulos.CurrentRow.DataBoundItem;
                 cargarImagen(articulo._urlImagen);
             }
             catch (Exception ex)
@@ -84,7 +86,7 @@ namespace TP_WinForm
         {
             try
             { 
-               pbArticulos.Load(img);
+                pbArticulos.Load(img);
             }
             catch (Exception)
             {
@@ -95,7 +97,21 @@ namespace TP_WinForm
         // Metodo Eliminar:
         public void eliminar()
         {
+            articulo = new Articulo();
 
+            try
+            {
+                // El MessageBox maneja estas alertas asi:
+                DialogResult respuesta = MessageBox.Show("Desea Eliminar el Pokemon seleccionado?", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                if (respuesta == DialogResult.Yes)
+                {
+                    
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
     }// Fin Form1
