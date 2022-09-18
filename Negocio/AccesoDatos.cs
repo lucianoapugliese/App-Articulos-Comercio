@@ -21,11 +21,19 @@ namespace Negocio
 
 
         // -- CONSTRUCTOR --
-        
-        public AccesoDatos(string cadenaConexion = "server=.; database = CATALOGO_DB; integrated security = true")
+
+        public AccesoDatos()
         {
-            _conexion = new SqlConnection(cadenaConexion);
-            if(_conexion == null) _conexion = new SqlConnection("server=.\\SQLEXPRESS01; database = CATALOGO_DB; integrated security = true");
+            //_conexion = new SqlConnection(cadenaConexion);
+                _conexion = new SqlConnection("server=.\\SQLEXPRESS01; database = CATALOGO_DB; integrated security = true");
+            //try
+            //{
+            //    _conexion = new SqlConnection("server=.; database = CATALOGO_DB; integrated security = true");
+
+            //}
+            //catch (Exception)
+            //{
+            //}
             _command = new SqlCommand();
         }
 

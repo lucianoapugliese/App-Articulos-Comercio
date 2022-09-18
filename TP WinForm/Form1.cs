@@ -115,5 +115,11 @@ namespace TP_WinForm
             }
         }
 
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            frmAltaArticulo frmAltaArticulo = new frmAltaArticulo();
+            frmAltaArticulo.ShowDialog();
+            actualizarGridView();
+        }
     }// Fin Form1
 }
