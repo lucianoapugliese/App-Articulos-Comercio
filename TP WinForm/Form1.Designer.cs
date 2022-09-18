@@ -35,7 +35,7 @@
             // dgbArticulos
             // 
             this.dgbArticulos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgbArticulos.Location = new System.Drawing.Point(52, 32);
+            this.dgbArticulos.Location = new System.Drawing.Point(22, 43);
             this.dgbArticulos.Name = "dgbArticulos";
             this.dgbArticulos.Size = new System.Drawing.Size(612, 250);
             this.dgbArticulos.TabIndex = 0;

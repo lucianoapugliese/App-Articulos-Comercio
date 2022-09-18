@@ -73,18 +73,47 @@ namespace Negocio
         }
 
         // Modificar Articulo:
-        public void modificarArticulo()
+        public void modificarArticulo(Articulo art)
         {
             _accesoDatos = new AccesoDatos();
             try
             {
-
+                _accesoDatos.setearQuery($"UPDATE ARTICULOS SET Codigo = '{art._codArticulo}', Nombre = '{art._nombre}', Descripcion = '{art._descripcion}', IdMarca = {art._marca._Id}, IdCategoria = {art._categoria._Id}, ImagenUrl = '{art._urlImagen}', Precio = {art._precio} WHERE Id = {art._Id}");
+                _accesoDatos.ejecutarQuery();
             }
             catch (Exception ex)
             {
                 throw ex;
             }
             finally 
+            {
+                _accesoDatos.cerrarConexion();
+            }
+        }
+
+        // Eliminar Articulo:
+        public void eliminarArticulo(int id, bool flag)
+        {
+            _accesoDatos = new AccesoDatos();
+            try
+            {
+                if(flag)
+                {
+                    //Eliminacion logica
+                    _accesoDatos.setearQuery($"UPDATE ARTICULOS SET Activo = 0 WHERE Id = {id}");
+                }
+                else
+                {
+                    //Eliminacion fisica
+                    _accesoDatos.setearQuery($"DELETE FROM ARTICULOS WHERE Id = {id}");
+                }
+                _accesoDatos.ejecutarQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
             {
                 _accesoDatos.cerrarConexion();
             }

@@ -23,7 +23,9 @@ namespace TP_WinForm
         }
 
         //ATRIBUTOS:
-        public List<Articulo> lista;
+        private List<Articulo> listaArticulos;
+        private List<Elemento> listaElementos;
+        private NegocioArticulo negocioArticulo;
 
         //METODOS:
         // Load:
@@ -44,9 +46,10 @@ namespace TP_WinForm
         {
             try
             {
-                NegocioArticulo negocioArticulo = new NegocioArticulo();
-                lista = negocioArticulo.listarArticulos();
-                dgbArticulos.DataSource = lista;
+                negocioArticulo = new NegocioArticulo();
+                listaArticulos= negocioArticulo.listarArticulos();
+                dgbArticulos.DataSource = listaArticulos;
+
                 dgbArticulos.Columns["_codArticulo"].HeaderText = "CODIGO";
                 dgbArticulos.Columns["_categoria"].HeaderText = "CATEGORIA";
                 dgbArticulos.Columns["_marca"].HeaderText = "MARCA";
@@ -60,6 +63,12 @@ namespace TP_WinForm
             {
                 throw ex;
             }
+        }
+
+        // Eliminar:
+        public void eliminar()
+        {
+
         }
 
     }// Fin Form1
