@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using System.Windows.Forms;
 
 namespace Negocio
 {
     // Acceso a Datos
     public class AccesoDatos
     {
-        // -- ATRIBUTOS --
+        //ATRIBUTOS:
         private SqlConnection _conexion = null;
         private SqlCommand _command;
         private SqlDataReader _reader = null;
@@ -19,17 +20,24 @@ namespace Negocio
             get {return _reader;} 
         }
 
-
-        // -- CONSTRUCTOR --
-        
+        //CONSTRUCTOR:
         public AccesoDatos(string cadenaConexion = "server=.; database = CATALOGO_DB; integrated security = true")
         {
             _conexion = new SqlConnection(cadenaConexion);
-            if(_conexion == null) _conexion = new SqlConnection("server=.\\SQLEXPRESS01; database = CATALOGO_DB; integrated security = true");
+            try
+            {
+                _conexion.Open();
+                _conexion.Close();
+            }
+            catch
+            {
+                MessageBox.Show("Ocurrio un error al intentar conectar a la base de datos.\nSe intenara utilizar otra ruta");
+                _conexion = new SqlConnection("server=.\\SQLEXPRESS; database = CATALOGO_DB; integrated security = true");
+            }
             _command = new SqlCommand();
         }
 
-        // -- METODOS --
+        //METODOS:
         // SetQuery:
         public void setearQuery(string query)
         {
