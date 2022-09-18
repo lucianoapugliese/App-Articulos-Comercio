@@ -48,16 +48,16 @@ namespace TP_WinForm
             {
                 negocioArticulo = new NegocioArticulo();
                 listaArticulos= negocioArticulo.listarArticulos();
-                dgbArticulos.DataSource = listaArticulos;
+                dgvArticulos.DataSource = listaArticulos;
 
-                dgbArticulos.Columns["_codArticulo"].HeaderText = "CODIGO";
-                dgbArticulos.Columns["_categoria"].HeaderText = "CATEGORIA";
-                dgbArticulos.Columns["_marca"].HeaderText = "MARCA";
-                dgbArticulos.Columns["_nombre"].HeaderText = "NOMBRE";
-                dgbArticulos.Columns["_descripcion"].HeaderText = "DESCRIPCION";
-                dgbArticulos.Columns["_precio"].HeaderText = "PRECIO";
-                dgbArticulos.Columns["_urlImagen"].Visible = false;
-                dgbArticulos.Columns["_Id"].Visible = false;
+                dgvArticulos.Columns["_codArticulo"].HeaderText = "CODIGO";
+                dgvArticulos.Columns["_categoria"].HeaderText = "CATEGORIA";
+                dgvArticulos.Columns["_marca"].HeaderText = "MARCA";
+                dgvArticulos.Columns["_nombre"].HeaderText = "NOMBRE";
+                dgvArticulos.Columns["_descripcion"].HeaderText = "DESCRIPCION";
+                dgvArticulos.Columns["_precio"].HeaderText = "PRECIO";
+                dgvArticulos.Columns["_urlImagen"].Visible = false;
+                dgvArticulos.Columns["_Id"].Visible = false;
             }
             catch (Exception ex)
             {
@@ -65,18 +65,10 @@ namespace TP_WinForm
             }
         }
         // Cargar Imagen:
-        private void dgbArticulos_SelectionChanged(object sender, EventArgs e)
+        private void dgvArticulos_SelectionChanged(object sender, EventArgs e)
         {
-            try
-            {
-                Articulo articulo = (Articulo)dgbArticulos.CurrentRow.DataBoundItem;
-                cargarImagen(articulo._urlImagen);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-            
+            Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+            cargarImagen(seleccionado._urlImagen);
         }
 
         // Metodo cargarImagen:
