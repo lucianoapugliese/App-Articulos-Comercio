@@ -19,6 +19,7 @@ namespace Negocio
             get {return _reader;} 
         }
 
+
         // -- CONSTRUCTOR --
         
         public AccesoDatos(string cadenaConexion = "server=.\\; database = CATALOGO_DB; integrated security = true")
@@ -36,7 +37,7 @@ namespace Negocio
         }
 
         // Ejecutar Lectura de Datos:
-        public void ejecutarLectrua()
+        public void ejecutarLectura()
         {
             _command.Connection = _conexion;
             try

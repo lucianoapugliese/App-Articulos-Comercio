@@ -22,7 +22,7 @@ namespace Negocio
             try
             {
                 _accesoDatos.setearQuery($"SELECT Id, Descripcion FROM {str}");
-                _accesoDatos.ejecutarLectrua();
+                _accesoDatos.ejecutarLectura();
                 while(_accesoDatos._lector.Read())
                 {
                     elementoAux = new Elemento();

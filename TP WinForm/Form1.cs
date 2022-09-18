@@ -64,8 +64,35 @@ namespace TP_WinForm
                 throw ex;
             }
         }
+        // Cargar Imagen:
+        private void dgbArticulos_SelectionChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                Articulo articulo = (Articulo)dgbArticulos.CurrentRow.DataBoundItem;
+                cargarImagen(articulo._urlImagen);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            
+        }
 
-        // Eliminar:
+        // Metodo cargarImagen:
+        private void cargarImagen(string img)
+        {
+            try
+            { 
+               pbArticulos.Load(img);
+            }
+            catch (Exception)
+            {
+                pbArticulos.Load("https://static.vecteezy.com/system/resources/previews/004/639/366/non_2x/error-404-not-found-text-design-vector.jpg");
+            }
+        }
+
+        // Metodo Eliminar:
         public void eliminar()
         {
 
