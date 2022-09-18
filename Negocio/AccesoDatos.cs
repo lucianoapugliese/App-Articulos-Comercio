@@ -12,9 +12,9 @@ namespace Negocio
     public class AccesoDatos
     {
         //ATRIBUTOS:
-        private SqlConnection _conexion /*= null*/;
+        private SqlConnection _conexion = null;
         private SqlCommand _command;
-        private SqlDataReader _reader /*= null*/;
+        private SqlDataReader _reader = null;
         public SqlDataReader _lector
         { 
             get {return _reader;} 
@@ -22,23 +22,11 @@ namespace Negocio
 
 
         // -- CONSTRUCTOR --
-        /*
-        public AccesoDatos()
-        {
-            //_conexion = new SqlConnection(cadenaConexion);
-                _conexion = new SqlConnection("server=.\\SQLEXPRESS01; database = CATALOGO_DB; integrated security = true");
-            //try
-            //{
-            //    _conexion = new SqlConnection("server=.; database = CATALOGO_DB; integrated security = true");
 
-            //}
-            //catch (Exception)
-            //{
-            } */
         //CONSTRUCTOR:
-        public AccesoDatos(/*string cadenaConexion = "server=.; database = CATALOGO_DB; integrated security = true"*/)
+        public AccesoDatos(string cadenaConexion = "server=.; database = CATALOGO_DB; integrated security = true")
         {
-            _conexion = new SqlConnection("server=.\\SQLEXPRESS01; database = CATALOGO_DB; integrated security = true");
+            _conexion = new SqlConnection(cadenaConexion);
             //try
             //{
             //    _conexion.Open();

@@ -12,7 +12,7 @@ namespace Negocio
         //ATRIBUTOS:
         private List<Elemento> _listaElementos;
         private AccesoDatos _accesoDatos;
-        private Elemento elementoAux;
+        private Elemento elementoAux = null;
 
         //METODOS:
         public List<Elemento> listar(string str)

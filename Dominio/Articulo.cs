@@ -21,6 +21,7 @@ namespace Dominio
         // CONSTRUCTOR:
         public Articulo()
         {
+
             _categoria = new Elemento();
             _marca = new Elemento();
         }

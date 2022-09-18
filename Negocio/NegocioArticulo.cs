@@ -59,7 +59,8 @@ namespace Negocio
             _accesoDatos = new AccesoDatos();
             try
             {
-                _accesoDatos.setearQuery($"INSERT INTO ARTICULOS VALUES ('{art._codArticulo}','{art._nombre}', '{art._descripcion}', {art._marca._Id}, {art._categoria._Id}, '{art._urlImagen}', {art._precio})");
+                //_accesoDatos.setearQuery($"INSERT INTO ARTICULOS VALUES ('{art._codArticulo}','{art._nombre}', '{art._descripcion}', {art._marca._Id}, {art._categoria._Id}, '{art._urlImagen}', {art._precio})");
+                _accesoDatos.setearQuery($"INSERT INTO ARTICULOS (Codigo, Nombre, Descripcion, IdMarca, IdCategoria, ImagenUrl, Precio) VALUES ('{art._codArticulo}','{art._nombre }', '{art._descripcion }', {art._marca._Id}, {art._categoria._Id}, '{art._urlImagen}', {art._precio})");
                 //_accesoDatos.setearQuery($"INSERT INTO ARTICULOS VALUES (@codart, @nombre, @descripcion, @idMarca, @idCategoria, @urlImg, @precio)");
                 //_accesoDatos.setearParametro("@codart", art._codArticulo);
                 //_accesoDatos.setearParametro("@nombre", art._nombre);
@@ -86,7 +87,8 @@ namespace Negocio
             _accesoDatos = new AccesoDatos();
             try
             {
-                _accesoDatos.setearQuery($"UPDATE ARTICULOS SET Codigo = '{art._codArticulo}', Nombre = '{art._nombre}', Descripcion = '{art._descripcion}', IdMarca = {art._marca._Id}, IdCategoria = {art._categoria._Id}, ImagenUrl = '{art._urlImagen}', Precio = {art._precio}, Activo = 1 WHERE Id = {art._Id}");
+                //_accesoDatos.setearQuery($"UPDATE ARTICULOS SET Codigo = '{art._codArticulo}', Nombre = '{art._nombre}', Descripcion = '{art._descripcion}', IdMarca = {art._marca._Id}, IdCategoria = {art._categoria._Id}, ImagenUrl = '{art._urlImagen}', Precio = {art._precio} WHERE Id = {art._Id}");
+                _accesoDatos.setearQuery($"UPDATE ARTICULOS SET Codigo = '{art._codArticulo}', Nombre = '{art._nombre}', Descripcion = '{art._descripcion}', IdMarca = {art._marca._Id}, IdCategoria = {art._categoria._Id}, ImagenUrl = '{art._urlImagen}', Precio = {art._precio} WHERE Id = {art._Id}");
                 _accesoDatos.ejecutarQuery();
             }
             catch (Exception ex)

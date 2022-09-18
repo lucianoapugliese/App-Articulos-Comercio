@@ -28,6 +28,7 @@ namespace TP_WinForm
         private NegocioArticulo negocioArticulo;
         private Articulo articulo;
         private List<Articulo> listAux;
+        private frmAltaArticulo frmAltaArticulo;
         private string filtro;
 
         //METODOS:
@@ -62,21 +63,47 @@ namespace TP_WinForm
         // Evento Boton Eliminar:
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            eliminar();
+            try
+            {
+                eliminar();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         // Evento Boton Agregar:
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            frmAltaArticulo frmAltaArticulo = new frmAltaArticulo();
-            frmAltaArticulo.ShowDialog();
-            actualizarGridView();
+            try
+            {
+                frmAltaArticulo = new frmAltaArticulo();
+                frmAltaArticulo.Name = "Agregar Articulo";
+                frmAltaArticulo.ShowDialog();
+                actualizarGridView();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         // Evento Boton Modificar:
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            // falta formulario de datos
+            articulo = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+            try
+            {
+                frmAltaArticulo = new frmAltaArticulo(articulo);
+                frmAltaArticulo.Name = "Modificar Articulo";
+                frmAltaArticulo.ShowDialog();
+                actualizarGridView();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
         
         // Evento Cambio texto en caja de busqueda rapida:
