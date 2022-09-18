@@ -23,7 +23,7 @@ namespace Negocio
             try
             {
                 _accesoDatos.setearQuery("SELECT a.Id, a.Codigo, c.Descripcion AS Categoria, c.Id AS IdCategoria, m.Id AS IdMarca, m.Descripcion AS Marca, a.Nombre, a.Descripcion, a.Precio, a.ImagenUrl FROM ARTICULOS a, MARCAS m, CATEGORIAS c WHERE a.IdMarca = m.Id AND a.IdCategoria = c.Id");
-                _accesoDatos.ejecutarLectrua();
+                _accesoDatos.ejecutarLectura();
                 while (_accesoDatos._lector.Read())
                 {
                     _articulo = new Articulo();

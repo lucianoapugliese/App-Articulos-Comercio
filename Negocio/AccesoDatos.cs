@@ -18,14 +18,8 @@ namespace Negocio
         { 
             get {return _reader;} 
         }
-
-        // -- CONSTRUCTOR --
-        
-<<<<<<< HEAD
-        public AccesoDatos(string cadenaConexion = "server=.\\; database = CATALOGO_DB; integrated security = true")
-=======
+        // -- CONSTRUCTOR --        
         public AccesoDatos(string cadenaConexion = "server=.\\SQLEXPRESS01; database = CATALOGO_DB; integrated security = true")
->>>>>>> 8f90ce7dd8998f27745e3b07dcec612581eb9acb
         {
             _conexion = new SqlConnection(cadenaConexion);
             _command = new SqlCommand();
@@ -40,7 +34,7 @@ namespace Negocio
         }
 
         // Ejecutar Lectura de Datos:
-        public void ejecutarLectrua()
+        public void ejecutarLectura()
         {
             _command.Connection = _conexion;
             try
