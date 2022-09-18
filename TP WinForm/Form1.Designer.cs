@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.dgvArticulos = new System.Windows.Forms.DataGridView();
             this.pbArticulos = new System.Windows.Forms.PictureBox();
             this.btnAgregar = new System.Windows.Forms.Button();
@@ -123,6 +124,7 @@
             this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.pbArticulos);
             this.Controls.Add(this.dgvArticulos);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Gestion de Comercio";
             this.Load += new System.EventHandler(this.Form1_Load);
