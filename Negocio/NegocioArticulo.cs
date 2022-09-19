@@ -22,7 +22,7 @@ namespace Negocio
             _accesoDatos = new AccesoDatos();
             try
             {
-                _accesoDatos.setearQuery("SELECT a.Id, a.Codigo, c.Descripcion AS Categoria, c.Id AS IdCategoria, m.Id AS IdMarca, m.Descripcion AS Marca, a.Nombre, a.Descripcion, a.Precio, a.ImagenUrl FROM ARTICULOS a, MARCAS m, CATEGORIAS c WHERE a.IdMarca = m.Id AND a.IdCategoria = c.Id");
+                _accesoDatos.setearQuery("SELECT a.Id, a.Codigo, a.IdCategoria, c.Descripcion as Categoria, a.IdMarca, m.Descripcion as Marca, a.Descripcion, a.Nombre, a.Precio, a.ImagenUrl FROM ARTICULOS a LEFT JOIN MARCAS m ON a.IdMarca = m.Id LEFT JOIN CATEGORIAS c ON a.IdCategoria = c.Id");
                 _accesoDatos.ejecutarLectura();
                 while (_accesoDatos._lector.Read())
                 {
@@ -31,7 +31,8 @@ namespace Negocio
                     _articulo._Id = (int)_accesoDatos._lector["Id"];
                     if(!(_accesoDatos._lector["Codigo"] is DBNull)) _articulo._codArticulo = (string)_accesoDatos._lector["Codigo"];
                     _articulo._categoria._Id = (int)_accesoDatos._lector["IdCategoria"];
-                    if(!(_accesoDatos._lector["Categoria"] is DBNull))_articulo._categoria._Descripcion = (string)_accesoDatos._lector["Categoria"];
+                    if (!(_accesoDatos._lector["Categoria"] is DBNull)) _articulo._categoria._Descripcion = (string)_accesoDatos._lector["Categoria"];
+                    else _articulo._categoria._Descripcion = "";
                     _articulo._marca._Id = (int)_accesoDatos._lector["IdMarca"];
                     if(!(_accesoDatos._lector["Marca"] is DBNull))_articulo._marca._Descripcion = (string)_accesoDatos._lector["Marca"];
                     if(!(_accesoDatos._lector["Nombre"] is DBNull))_articulo._nombre = (string)_accesoDatos._lector["Nombre"];
