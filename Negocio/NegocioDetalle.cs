@@ -7,17 +7,17 @@ using Dominio;
 
 namespace Negocio
 {
-    public class NegocioElemento
+    public class NegocioDetalle
     {
         //ATRIBUTOS:
-        private List<Elemento> _listaElementos;
+        private List<Detalle> _listaDetalles;
         private AccesoDatos _accesoDatos;
-        private Elemento elementoAux = null;
+        private Detalle DetalleAux = null;
 
         //METODOS:
-        public List<Elemento> listar(string str)
+        public List<Detalle> listar(string str)
         {
-            _listaElementos = new List<Elemento>();
+            _listaDetalles = new List<Detalle>();
             _accesoDatos = new AccesoDatos();
             try
             {
@@ -25,13 +25,13 @@ namespace Negocio
                 _accesoDatos.ejecutarLectura();
                 while(_accesoDatos._lector.Read())
                 {
-                    elementoAux = new Elemento();
-                    elementoAux._Id = (int)_accesoDatos._lector["Id"];
-                    elementoAux._Descripcion = (string)_accesoDatos._lector["Descripcion"];
-                    _listaElementos.Add(elementoAux);
+                    DetalleAux = new Detalle();
+                    DetalleAux._Id = (int)_accesoDatos._lector["Id"];
+                    DetalleAux._Descripcion = (string)_accesoDatos._lector["Descripcion"];
+                    _listaDetalles.Add(DetalleAux);
                 }
 
-                return _listaElementos;
+                return _listaDetalles;
             }
             catch (Exception ex)
             {

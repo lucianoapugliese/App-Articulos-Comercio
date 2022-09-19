@@ -24,7 +24,7 @@ namespace TP_WinForm
 
         //ATRIBUTOS:
         private List<Articulo> listaArticulos;
-        private List<Elemento> listaElementos;
+        private List<Detalle> listaDetalles;
         private NegocioArticulo negocioArticulo;
         private Articulo articulo;
         private List<Articulo> listAux;

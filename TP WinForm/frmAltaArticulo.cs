@@ -16,7 +16,7 @@ namespace TP_WinForm
     {
         //ATRIBUTOS:
         private Articulo _articulo = null;
-        private NegocioElemento _negocioElemento;
+        private NegocioDetalle _negocioDetalle;
         private NegocioArticulo _negocioArticulo;
 
         //CONSTRUCTOR:
@@ -40,13 +40,13 @@ namespace TP_WinForm
         // Load:
         private void frmAltaArticulo_Load(object sender, EventArgs e)
         {
-            _negocioElemento = new NegocioElemento();
+            _negocioDetalle = new NegocioDetalle();
             try
             {
-                cboBoxMarca.DataSource = _negocioElemento.listar("MARCAS");
+                cboBoxMarca.DataSource = _negocioDetalle.listar("MARCAS");
                 cboBoxCategoria.ValueMember = "_Id";
                 cboBoxCategoria.DisplayMember = "_Descripcion";
-                cboBoxCategoria.DataSource = _negocioElemento.listar("CATEGORIAS");
+                cboBoxCategoria.DataSource = _negocioDetalle.listar("CATEGORIAS");
                 cboBoxMarca.ValueMember = "_Id";
                 cboBoxMarca.DisplayMember = "_Descripcion";
 
@@ -87,8 +87,8 @@ namespace TP_WinForm
                 _articulo._precio = Convert.ToDecimal(txtBoxPrecio.Text);
                 _articulo._urlImagen = txtBoxUrlImagen.Text;
                 _articulo._nombre = txtBoxNombre.Text;
-                _articulo._categoria = (Elemento)cboBoxCategoria.SelectedItem;
-                _articulo._marca = (Elemento)cboBoxMarca.SelectedItem;
+                _articulo._categoria = (Detalle)cboBoxCategoria.SelectedItem;
+                _articulo._marca = (Detalle)cboBoxMarca.SelectedItem;
 
                 if(_articulo._Id == 0)
                 {

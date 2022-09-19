@@ -10,8 +10,8 @@ namespace Dominio
     {
         // ATRIBUTOS:
         public string _codArticulo { get; set; }
-        public Elemento _categoria { get; set; }
-        public Elemento _marca { get; set; }
+        public Detalle _categoria { get; set; }
+        public Detalle _marca { get; set; }
         public string _nombre { get; set; } 
         public string _descripcion { get; set; }
         public string _urlImagen { get; set; }
@@ -23,8 +23,8 @@ namespace Dominio
         public Articulo()
         {
 
-            _categoria = new Elemento();
-            _marca = new Elemento();
+            _categoria = new Detalle();
+            _marca = new Detalle();
         }
 
         // METODOS:

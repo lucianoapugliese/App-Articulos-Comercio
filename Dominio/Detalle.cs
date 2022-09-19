@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Dominio
 {
     // Esta clase es generica a MARCA y CATEGORIA de la BD
-    public class Elemento
+    public class Detalle
     {
         // ATRIBUTOS:
         public int _Id { get; set; }
