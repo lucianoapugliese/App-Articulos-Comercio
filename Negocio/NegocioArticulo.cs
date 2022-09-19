@@ -124,5 +124,67 @@ namespace Negocio
             }
         }
 
+        // Busqueda Filtrada:
+        public List<Articulo> busquedaFiltrada(Articulo art, decimal fil, string criterio)
+        {
+            string queryFiltrada = fitrarString(art, fil, criterio);
+            _listaArticulos = new List<Articulo>();
+            _accesoDatos = new AccesoDatos();
+            try
+            {
+                _accesoDatos.setearQuery(queryFiltrada);
+                _accesoDatos.ejecutarLectura();
+                
+                while (_accesoDatos._lector.Read())
+                {
+                    _articulo = new Articulo();
+
+                    _articulo._Id = (int)_accesoDatos._lector["Id"];
+                    if (!(_accesoDatos._lector["Codigo"] is DBNull)) _articulo._codArticulo = (string)_accesoDatos._lector["Codigo"];
+                    _articulo._categoria._Id = (int)_accesoDatos._lector["IdCategoria"];
+                    if (!(_accesoDatos._lector["Categoria"] is DBNull)) _articulo._categoria._Descripcion = (string)_accesoDatos._lector["Categoria"];
+                    else _articulo._categoria._Descripcion = "";
+                    _articulo._marca._Id = (int)_accesoDatos._lector["IdMarca"];
+                    if (!(_accesoDatos._lector["Marca"] is DBNull)) _articulo._marca._Descripcion = (string)_accesoDatos._lector["Marca"];
+                    if (!(_accesoDatos._lector["Nombre"] is DBNull)) _articulo._nombre = (string)_accesoDatos._lector["Nombre"];
+                    if (!(_accesoDatos._lector["Descripcion"] is DBNull)) _articulo._descripcion = (string)_accesoDatos._lector["Descripcion"];
+                    if (!(_accesoDatos._lector["Precio"] is DBNull)) _articulo._precio = (decimal)_accesoDatos._lector["Precio"];
+                    if (!(_accesoDatos._lector["ImagenUrl"] is DBNull)) _articulo._urlImagen = (string)_accesoDatos._lector["ImagenUrl"];
+                    _articulo.redondear(2);
+                    _listaArticulos.Add(_articulo);
+                }
+                return _listaArticulos;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                _accesoDatos.cerrarConexion();
+            }
+        }
+
+        // Metodo filtro:
+        private string fitrarString(Articulo art, decimal fil, string cri)
+        {
+            string filtroFinal;
+            string filMarca = art._marca._Descripcion;
+            string filCategoria = art._categoria._Descripcion;
+            if (cri == "Mayor a")
+            {
+                filtroFinal = $"SELECT a.Id, a.Codigo, a.IdCategoria, c.Descripcion as Categoria, a.IdMarca, m.Descripcion as Marca, a.Descripcion, a.Nombre, a.Precio, a.ImagenUrl FROM ARTICULOS a LEFT JOIN MARCAS m ON a.IdMarca = m.Id LEFT JOIN CATEGORIAS c ON a.IdCategoria = c.Id WHERE c.Descripcion LIKE '{filCategoria}' AND m.Descripcion LIKE '{filMarca}' AND a.Precio > {fil}";
+            }
+            else if(cri == "Menor a")
+            {
+                filtroFinal = $"SELECT a.Id, a.Codigo, a.IdCategoria, c.Descripcion as Categoria, a.IdMarca, m.Descripcion as Marca, a.Descripcion, a.Nombre, a.Precio, a.ImagenUrl FROM ARTICULOS a LEFT JOIN MARCAS m ON a.IdMarca = m.Id LEFT JOIN CATEGORIAS c ON a.IdCategoria = c.Id WHERE c.Descripcion LIKE '{filCategoria}' AND m.Descripcion LIKE '{filMarca}' AND a.Precio < {fil}";
+            }
+            else
+            {
+                filtroFinal = $"SELECT a.Id, a.Codigo, a.IdCategoria, c.Descripcion as Categoria, a.IdMarca, m.Descripcion as Marca, a.Descripcion, a.Nombre, a.Precio, a.ImagenUrl FROM ARTICULOS a LEFT JOIN MARCAS m ON a.IdMarca = m.Id LEFT JOIN CATEGORIAS c ON a.IdCategoria = c.Id WHERE c.Descripcion LIKE '{filCategoria}' AND m.Descripcion LIKE '{filMarca}' AND a.Precio = {fil}";
+            }
+            return filtroFinal;
+        }
+
     }//Fin NegocioArticulo
 }

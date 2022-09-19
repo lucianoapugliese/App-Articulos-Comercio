@@ -28,9 +28,11 @@ namespace TP_WinForm
         private NegocioDetalle negocioDetalle;
         private NegocioArticulo negocioArticulo;
         private Articulo articulo;
+        private Articulo artBusqueda = new Articulo();
         private List<Articulo> listAux;
         private frmAltaArticulo frmAltaArticulo;
-        private string filtro;
+        private string filtroRapido;
+        private string filtroBusqueda;
 
         //METODOS:
         // Load:
@@ -123,15 +125,16 @@ namespace TP_WinForm
             }
         }
 
+        //
         // Metodo filtrarRapido:
         public void filtrarRapido()
         {
-            filtro = tbxFiltroRapido.Text;
+            filtroRapido = tbxFiltroRapido.Text;
             try
             {
-                if(filtro.Length > 2)
+                if(filtroRapido.Length > 2)
                 {
-                    listAux = listaArticulos.FindAll(itm => itm._nombre.ToUpper().Contains(filtro.ToUpper()) || itm._codArticulo.ToUpper().Contains(filtro.ToUpper()));
+                    listAux = listaArticulos.FindAll(itm => itm._nombre.ToUpper().Contains(filtroRapido.ToUpper()) || itm._codArticulo.ToUpper().Contains(filtroRapido.ToUpper()));
                 }
                 else
                 { 
@@ -154,6 +157,30 @@ namespace TP_WinForm
             {
                 negocioArticulo = new NegocioArticulo();
                 listaArticulos= negocioArticulo.listarArticulos();
+                dgvArticulos.DataSource = listaArticulos;
+
+                dgvArticulos.Columns["_codArticulo"].HeaderText = "CODIGO";
+                dgvArticulos.Columns["_categoria"].HeaderText = "CATEGORIA";
+                dgvArticulos.Columns["_marca"].HeaderText = "MARCA";
+                dgvArticulos.Columns["_nombre"].HeaderText = "NOMBRE";
+                dgvArticulos.Columns["_descripcion"].HeaderText = "DESCRIPCION";
+                dgvArticulos.Columns["_precio"].HeaderText = "PRECIO";
+                dgvArticulos.Columns["_urlImagen"].Visible = false;
+                dgvArticulos.Columns["_Id"].Visible = false;
+                lblCodigoSelecion.Text = "Codigo:" + listaArticulos[0]._codArticulo;
+                lblNombreArt.Text = listaArticulos[0]._nombre;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        // Metodo Actulizar GridView sobrecarga:
+        public void actualizarGridView(List<Articulo> lis)
+        {
+            try
+            {
+                listaArticulos = lis;
                 dgvArticulos.DataSource = listaArticulos;
 
                 dgvArticulos.Columns["_codArticulo"].HeaderText = "CODIGO";
@@ -229,6 +256,43 @@ namespace TP_WinForm
                 throw ex;
             }
         }
+        
+        //
+        // -- Eventos De Busqueda Avanzada --
+        // Evento Cambio En filtro Numerico:
+        private void cbxFiltroNumerico_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            filtroBusqueda = cbxFiltroNumerico.Text;
+            numFiltro.Enabled = true;
+            numFiltro.Maximum = 100000000;
+            numFiltro.Minimum = 0;
+        }
 
+        // Eventos Seleccion ComoBox Categoria y Marcas:
+        private void cbxFiltroCategorias_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // CATEGORIAS
+            artBusqueda._categoria._Descripcion = cbxFiltroCategorias.Text;
+        }
+        private void cbxFiltroMarcas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // MARCAS
+            artBusqueda._marca._Descripcion = cbxFiltroMarcas.Text;
+        }
+        // Evento Boton Busqueda:
+        private void btnBusqueda_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                decimal filNum = numFiltro.Value; 
+                negocioArticulo = new NegocioArticulo();
+                actualizarGridView( negocioArticulo.busquedaFiltrada(artBusqueda, filNum, filtroBusqueda) );
+                
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }// Fin Form1
 }

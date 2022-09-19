@@ -13,8 +13,11 @@ namespace Negocio
         private List<Detalle> _listaDetalles;
         private AccesoDatos _accesoDatos;
         private Detalle DetalleAux = null;
+        public List<Detalle> listaCategorias { get; set; }
+        public List<Detalle> listaMarcas { get; set; }
 
         //METODOS:
+        // Listar:
         public List<Detalle> listar(string str = "CATEGORIAS")
         {
             _listaDetalles = new List<Detalle>();
@@ -43,5 +46,22 @@ namespace Negocio
             }
         }
 
-    }
+        // Listar las dos categorias:
+        public void listarDosCategorias()
+        {
+            listaCategorias = new List<Detalle>();
+            listaMarcas = new List<Detalle>();
+            try
+            {
+                listaCategorias = listar("CATEGORIAS");
+
+                listaMarcas = listar("MARCAS");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+    }//fin NegocioDetalle
 }

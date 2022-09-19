@@ -139,6 +139,7 @@
             this.btnBusqueda.TabIndex = 6;
             this.btnBusqueda.Text = "Buscar";
             this.btnBusqueda.UseVisualStyleBackColor = true;
+            this.btnBusqueda.Click += new System.EventHandler(this.btnBusqueda_Click);
             // 
             // lblNombreArt
             // 
@@ -155,6 +156,7 @@
             this.cbxFiltroCategorias.Name = "cbxFiltroCategorias";
             this.cbxFiltroCategorias.Size = new System.Drawing.Size(121, 21);
             this.cbxFiltroCategorias.TabIndex = 8;
+            this.cbxFiltroCategorias.SelectedIndexChanged += new System.EventHandler(this.cbxFiltroCategorias_SelectedIndexChanged);
             // 
             // cbxFiltroMarcas
             // 
@@ -163,6 +165,7 @@
             this.cbxFiltroMarcas.Name = "cbxFiltroMarcas";
             this.cbxFiltroMarcas.Size = new System.Drawing.Size(121, 21);
             this.cbxFiltroMarcas.TabIndex = 9;
+            this.cbxFiltroMarcas.SelectedIndexChanged += new System.EventHandler(this.cbxFiltroMarcas_SelectedIndexChanged);
             // 
             // numFiltro
             // 
@@ -179,6 +182,7 @@
             this.cbxFiltroNumerico.Name = "cbxFiltroNumerico";
             this.cbxFiltroNumerico.Size = new System.Drawing.Size(73, 21);
             this.cbxFiltroNumerico.TabIndex = 11;
+            this.cbxFiltroNumerico.SelectedIndexChanged += new System.EventHandler(this.cbxFiltroNumerico_SelectedIndexChanged);
             // 
             // Form1
             // 
