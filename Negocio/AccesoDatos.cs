@@ -24,19 +24,18 @@ namespace Negocio
         // -- CONSTRUCTOR --
 
         //CONSTRUCTOR:
-        public AccesoDatos(string cadenaConexion = "server=.\\SQLEXPRESS01; database = CATALOGO_DB; integrated security = true")
+        public AccesoDatos(string cadenaConexion = "server=.; database = CATALOGO_DB; integrated security = true")
         {
             _conexion = new SqlConnection(cadenaConexion);
-            //try
-            //{
-            //    _conexion.Open();
-            //    _conexion.Close();
-            //}
-            //catch
-            //{
-            //    MessageBox.Show("Ocurrio un error al intentar conectar a la base de datos.\nSe intenara utilizar otra ruta");
-            //    _conexion = new SqlConnection("server=.\\SQLEXPRESS01; database = CATALOGO_DB; integrated security = true");
-            //}
+            try
+            {
+                _conexion.Open();
+                _conexion.Close();
+            }
+            catch
+            {
+                MessageBox.Show("Ocurrio un error al intentar conectar a la base de datos.\nIntente utilizar otra ruta");
+            }
             _command = new SqlCommand();
         }
 

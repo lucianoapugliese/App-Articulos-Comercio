@@ -15,7 +15,7 @@ namespace Negocio
         private Detalle DetalleAux = null;
 
         //METODOS:
-        public List<Detalle> listar(string str)
+        public List<Detalle> listar(string str = "CATEGORIAS")
         {
             _listaDetalles = new List<Detalle>();
             _accesoDatos = new AccesoDatos();

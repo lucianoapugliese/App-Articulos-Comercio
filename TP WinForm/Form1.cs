@@ -25,6 +25,7 @@ namespace TP_WinForm
         //ATRIBUTOS:
         private List<Articulo> listaArticulos;
         private List<Detalle> listaDetalles;
+        private NegocioDetalle negocioDetalle;
         private NegocioArticulo negocioArticulo;
         private Articulo articulo;
         private List<Articulo> listAux;
@@ -38,6 +39,7 @@ namespace TP_WinForm
             try
             {
                 actualizarGridView();
+                cargarComboBox();
             }
             catch (Exception ex)
             {
@@ -52,6 +54,8 @@ namespace TP_WinForm
             {
                 articulo = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
                 cargarImagen(articulo._urlImagen);
+                lblCodigoSelecion.Text = "Codigo:" + articulo._codArticulo;
+                lblNombreArt.Text = articulo._nombre;
             }
             catch (Exception ex)
             {
@@ -160,6 +164,8 @@ namespace TP_WinForm
                 dgvArticulos.Columns["_precio"].HeaderText = "PRECIO";
                 dgvArticulos.Columns["_urlImagen"].Visible = false;
                 dgvArticulos.Columns["_Id"].Visible = false;
+                lblCodigoSelecion.Text = "Codigo:" + listaArticulos[0]._codArticulo;
+                lblNombreArt.Text = listaArticulos[0]._nombre;
             }
             catch (Exception ex)
             {
@@ -202,5 +208,27 @@ namespace TP_WinForm
                 throw ex;
             }
         }
+
+        // Metodo Cargar Bombox Busqueda:
+        public void cargarComboBox()
+        {
+            negocioDetalle = new NegocioDetalle();
+
+            try
+            {
+                listaDetalles = negocioDetalle.listar("CATEGORIAS");
+                cbxFiltroCategorias.DataSource = listaDetalles;
+                listaDetalles = negocioDetalle.listar("MARCAS");
+                cbxFiltroMarcas.DataSource = listaDetalles;
+                cbxFiltroNumerico.Items.Add("Mayor a");
+                cbxFiltroNumerico.Items.Add("Menor a");
+                cbxFiltroNumerico.Items.Add("Igual a");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }// Fin Form1
 }

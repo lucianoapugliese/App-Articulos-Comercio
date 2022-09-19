@@ -62,15 +62,15 @@ namespace Negocio
             {
                 art.redondear(2);
                 //_accesoDatos.setearQuery($"INSERT INTO ARTICULOS VALUES ('{art._codArticulo}','{art._nombre}', '{art._descripcion}', {art._marca._Id}, {art._categoria._Id}, '{art._urlImagen}', {art._precio})");
-                _accesoDatos.setearQuery($"INSERT INTO ARTICULOS (Codigo, Nombre, Descripcion, IdMarca, IdCategoria, ImagenUrl, Precio) VALUES ('{art._codArticulo}','{art._nombre }', '{art._descripcion }', {art._marca._Id}, {art._categoria._Id}, '{art._urlImagen}', {art._precio})");
+                _accesoDatos.setearQuery($"INSERT INTO ARTICULOS (Codigo, Nombre, Descripcion, IdMarca, IdCategoria, ImagenUrl, Precio) VALUES ('{art._codArticulo}','{art._nombre }', '{art._descripcion }', @idMarca, @idCategoria, '{art._urlImagen}', @precio)");
                 //_accesoDatos.setearQuery($"INSERT INTO ARTICULOS VALUES (@codart, @nombre, @descripcion, @idMarca, @idCategoria, @urlImg, @precio)");
                 //_accesoDatos.setearParametro("@codart", art._codArticulo);
                 //_accesoDatos.setearParametro("@nombre", art._nombre);
                 //_accesoDatos.setearParametro("@descripcion", art._descripcion);
-                //_accesoDatos.setearParametro("@idMarca", art._marca._Id);
-                //_accesoDatos.setearParametro("@idCategoria", art._categoria._Id);
                 //_accesoDatos.setearParametro("@urlImg", art._urlImagen);
-                //_accesoDatos.setearParametro("@precio", art._precio);
+                _accesoDatos.setearParametro("@idMarca", art._marca._Id);
+                _accesoDatos.setearParametro("@idCategoria", art._categoria._Id);
+                _accesoDatos.setearParametro("@precio", art._precio);
                 _accesoDatos.ejecutarQuery();
             }
             catch (Exception ex)
@@ -89,9 +89,10 @@ namespace Negocio
             _accesoDatos = new AccesoDatos();
             try
             {
-                art.redondear(0);
+                art.redondear(2);
                 //_accesoDatos.setearQuery($"UPDATE ARTICULOS SET Codigo = '{art._codArticulo}', Nombre = '{art._nombre}', Descripcion = '{art._descripcion}', IdMarca = {art._marca._Id}, IdCategoria = {art._categoria._Id}, ImagenUrl = '{art._urlImagen}', Precio = {art._precio} WHERE Id = {art._Id}");
-                _accesoDatos.setearQuery($"UPDATE ARTICULOS SET Codigo = '{art._codArticulo}', Nombre = '{art._nombre}', Descripcion = '{art._descripcion}', IdMarca = {art._marca._Id}, IdCategoria = {art._categoria._Id}, ImagenUrl = '{art._urlImagen}', Precio = {art._precio} WHERE Id = {art._Id}");
+                _accesoDatos.setearQuery($"UPDATE ARTICULOS SET Codigo = '{art._codArticulo}', Nombre = '{art._nombre}', Descripcion = '{art._descripcion}', IdMarca = {art._marca._Id}, IdCategoria = {art._categoria._Id}, ImagenUrl = '{art._urlImagen}', Precio = @precio WHERE Id = {art._Id}");
+                _accesoDatos.setearParametro("@precio", art._precio);
                 _accesoDatos.ejecutarQuery();
             }
             catch (Exception ex)
