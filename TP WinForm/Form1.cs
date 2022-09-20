@@ -316,7 +316,6 @@ namespace TP_WinForm
                 throw ex;
             }
         }
-        
 
     }// Fin Form1
 }

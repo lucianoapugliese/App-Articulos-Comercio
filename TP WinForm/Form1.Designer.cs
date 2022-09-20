@@ -71,7 +71,7 @@
             this.pbArticulos.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.pbArticulos.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pbArticulos.Location = new System.Drawing.Point(737, 63);
-            this.pbArticulos.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pbArticulos.Margin = new System.Windows.Forms.Padding(2);
             this.pbArticulos.Name = "pbArticulos";
             this.pbArticulos.Size = new System.Drawing.Size(231, 250);
             this.pbArticulos.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -81,7 +81,7 @@
             // btnAgregar
             // 
             this.btnAgregar.Location = new System.Drawing.Point(12, 320);
-            this.btnAgregar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnAgregar.Margin = new System.Windows.Forms.Padding(2);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(78, 30);
             this.btnAgregar.TabIndex = 2;
@@ -92,7 +92,7 @@
             // btnModificar
             // 
             this.btnModificar.Location = new System.Drawing.Point(121, 320);
-            this.btnModificar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnModificar.Margin = new System.Windows.Forms.Padding(2);
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(78, 30);
             this.btnModificar.TabIndex = 2;
@@ -103,7 +103,7 @@
             // btnEliminar
             // 
             this.btnEliminar.Location = new System.Drawing.Point(230, 320);
-            this.btnEliminar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnEliminar.Margin = new System.Windows.Forms.Padding(2);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(78, 30);
             this.btnEliminar.TabIndex = 2;
