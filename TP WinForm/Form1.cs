@@ -146,6 +146,14 @@ namespace TP_WinForm
             // MARCAS
             artBusqueda._marca._Descripcion = cbxFiltroMarcas.Text;
         }
+
+        // Validación
+
+        private void validarFiltro()
+        {
+            if (cbxFiltroNumerico.SelectedIndex < 0) MessageBox.Show("Por favor seleccione un filtro de criterio.");
+        }
+
         // Evento Boton Busqueda:
         private void btnBusqueda_Click(object sender, EventArgs e)
         {
@@ -317,6 +325,5 @@ namespace TP_WinForm
             }
         }
         
-
     }// Fin Form1
 }

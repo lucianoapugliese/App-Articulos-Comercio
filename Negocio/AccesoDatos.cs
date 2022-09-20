@@ -26,7 +26,7 @@ namespace Negocio
         //CONSTRUCTOR:
         public AccesoDatos(string cadenaConexion = "server=.; database = CATALOGO_DB; integrated security = true")
         {
-            //server =.\\SQLEXPRESS01; database = CATALOGO_DB; integrated security = true
+            cadenaConexion="server =.\\SQLEXPRESS01; database = CATALOGO_DB; integrated security = true";
             _conexion = new SqlConnection(cadenaConexion);
             try
             {
