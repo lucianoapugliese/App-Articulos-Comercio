@@ -134,11 +134,9 @@ namespace Negocio
             {
                 _accesoDatos.setearQuery(queryFiltrada);
                 _accesoDatos.ejecutarLectura();
-                
                 while (_accesoDatos._lector.Read())
                 {
                     _articulo = new Articulo();
-
                     _articulo._Id = (int)_accesoDatos._lector["Id"];
                     if (!(_accesoDatos._lector["Codigo"] is DBNull)) _articulo._codArticulo = (string)_accesoDatos._lector["Codigo"];
                     _articulo._categoria._Id = (int)_accesoDatos._lector["IdCategoria"];

@@ -125,6 +125,26 @@ namespace TP_WinForm
             }
         }
         
+        // Evento Boton Actualizar:
+        private void btnActualizarGrid_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                actualizarGridView();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        // Validación filtro Numerico:
+        private void validarFiltro()
+        {
+            if (cbxFiltroNumerico.SelectedIndex < 0) MessageBox.Show("Por favor seleccione un filtro de criterio.");
+        }
+        
         // -- Eventos De Busqueda Avanzada --
         // Evento Cambio En filtro Numerico:
         private void cbxFiltroNumerico_SelectedIndexChanged(object sender, EventArgs e)
@@ -146,6 +166,7 @@ namespace TP_WinForm
             // MARCAS
             artBusqueda._marca._Descripcion = cbxFiltroMarcas.Text;
         }
+
         // Evento Boton Busqueda:
         private void btnBusqueda_Click(object sender, EventArgs e)
         {
@@ -159,20 +180,6 @@ namespace TP_WinForm
             catch (Exception ex)
             {
                 throw ex;
-            }
-        }
-
-        // Evento Boton Actualizar:
-        private void btnActualizarGrid_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                actualizarGridView();
-            }
-            catch (Exception ex)
-            {
-
-                MessageBox.Show(ex.ToString());
             }
         }
 
@@ -213,6 +220,7 @@ namespace TP_WinForm
         // Metodo Actulizar GridView:
         public void actualizarGridView()
         {
+            dgvArticulos.DataSource = null;
             try
             {
                 negocioArticulo = new NegocioArticulo();
@@ -240,19 +248,29 @@ namespace TP_WinForm
         {
             try
             {
-                listaArticulos = lis;
-                dgvArticulos.DataSource = listaArticulos;
+                if(lis.Count > 0)
+                {
+                    listaArticulos = lis;
+                    dgvArticulos.DataSource = listaArticulos;
 
-                dgvArticulos.Columns["_codArticulo"].HeaderText = "CODIGO";
-                dgvArticulos.Columns["_categoria"].HeaderText = "CATEGORIA";
-                dgvArticulos.Columns["_marca"].HeaderText = "MARCA";
-                dgvArticulos.Columns["_nombre"].HeaderText = "NOMBRE";
-                dgvArticulos.Columns["_descripcion"].HeaderText = "DESCRIPCION";
-                dgvArticulos.Columns["_precio"].HeaderText = "PRECIO";
-                dgvArticulos.Columns["_urlImagen"].Visible = false;
-                dgvArticulos.Columns["_Id"].Visible = false;
-                lblCodigoSelecion.Text = "Codigo:" + listaArticulos[0]._codArticulo;
-                lblNombreArt.Text = listaArticulos[0]._nombre;
+                    dgvArticulos.Columns["_codArticulo"].HeaderText = "CODIGO";
+                    dgvArticulos.Columns["_categoria"].HeaderText = "CATEGORIA";
+                    dgvArticulos.Columns["_marca"].HeaderText = "MARCA";
+                    dgvArticulos.Columns["_nombre"].HeaderText = "NOMBRE";
+                    dgvArticulos.Columns["_descripcion"].HeaderText = "DESCRIPCION";
+                    dgvArticulos.Columns["_precio"].HeaderText = "PRECIO";
+                    dgvArticulos.Columns["_urlImagen"].Visible = false;
+                    dgvArticulos.Columns["_Id"].Visible = false;
+
+                    cargarImagen(listaArticulos[0]._urlImagen);
+                    lblCodigoSelecion.Text = "Codigo:" + listaArticulos[0]._codArticulo;
+                    lblNombreArt.Text = listaArticulos[0]._nombre;
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo encontrar referencia");
+                    dgvArticulos.DataSource = null;
+                }
             }
             catch (Exception ex)
             {
