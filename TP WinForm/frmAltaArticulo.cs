@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Configuration;
 
+
 namespace TP_WinForm
 {
     public partial class frmAltaArticulo : Form
@@ -98,7 +99,7 @@ namespace TP_WinForm
 
                 if(_articulo._Id == 0)
                 {
-                    if (validar(_articulo._codArticulo, "000", 3)) // si da true, quiere decir que el campo contenia el string parametro o era mayor al numero parametro
+                    if ( validar(_articulo._codArticulo, "000", 3) ) // si da true, quiere decir que el campo contenia el string parametro o era mayor al numero parametro
                     {
                         MessageBox.Show("Campo Codigo de Articulo incorrecto");
                         return;
@@ -116,11 +117,14 @@ namespace TP_WinForm
                     _negocioArticulo.modificarArticulo(_articulo);
                     MessageBox.Show("Articulo Modificado");
                 }
+
+                // comprovar antes de guardar una img:
                 if ( _archivo != null && !(_urlString.ToUpper().Contains("HTTP")) )
                 {
                     guardarImagen(txtBoxUrlImagen.Text, _archivo.SafeFileName);
                 }
-                Close();
+               Close();
+
             }
             catch (Exception ex)
             {
@@ -183,13 +187,16 @@ namespace TP_WinForm
             campo.ToUpper();
             subStr.ToUpper();
 
-            if(campo.Length < valorMax)
+            
+            
+            if(campo.Length <= valorMax)
                 return campo.Contains(subStr);
             else
                 return true;
         }
+        //
         
-        // Modificar String campo(sin uso xahora)
+        // Modificar String campo(sin uso x ahora)
         public void ModificarStringCampo(string campo, string str, bool flag = true)
         {
             campo.ToUpper();

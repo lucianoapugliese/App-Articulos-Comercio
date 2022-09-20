@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using System.Configuration;
 
 namespace Negocio
 {
@@ -20,22 +21,22 @@ namespace Negocio
             get {return _reader;} 
         }
 
-
-        // -- CONSTRUCTOR --
-
         //CONSTRUCTOR:
         public AccesoDatos(string cadenaConexion = "server=.; database = CATALOGO_DB; integrated security = true")
         {
             //cadenaConexion="server =.\\SQLEXPRESS01; database = CATALOGO_DB; integrated security = true";
-            _conexion = new SqlConnection(cadenaConexion);
+            // Luchoo! para conectarte vs cambia "serverDef1" por "serverDef2"...
+            string server = ConfigurationManager.AppSettings["serverDef1"];
+            cadenaConexion = "server="+server+";database = CATALOGO_DB; integrated security = true";
             try
             {
+                _conexion = new SqlConnection(cadenaConexion);
                 _conexion.Open();
                 _conexion.Close();
             }
             catch
             {
-                MessageBox.Show("Ocurrio un error al intentar conectar a la base de datos.\nIntente utilizar otra ruta");
+                MessageBox.Show("Ocurrio un error al conectar con la base de datos");
             }
             _command = new SqlCommand();
         }
