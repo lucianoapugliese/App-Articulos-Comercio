@@ -98,7 +98,7 @@ namespace TP_WinForm
 
                 if(_articulo._Id == 0)
                 {
-                    if (Validar(_articulo._codArticulo, "000"))
+                    if (validar(_articulo._codArticulo, "000", 3)) // si da true, quiere decir que el campo contenia el string parametro o era mayor al numero parametro
                     {
                         MessageBox.Show("Campo Codigo de Articulo incorrecto");
                         return;
@@ -108,7 +108,7 @@ namespace TP_WinForm
                 }
                 else
                 {
-                    if (Validar(_articulo._codArticulo, "000"))
+                    if (validar(_articulo._codArticulo, "000", 3))
                     {
                         MessageBox.Show("Campo Codigo de Articulo incorrecto");
                         return;
@@ -178,12 +178,17 @@ namespace TP_WinForm
         }
 
         // Metodos Validaciones:
-        public bool Validar(string campo, string subStr)
-        {
+        public bool validar(string campo, string subStr, int valorMax)
+        { 
             campo.ToUpper();
             subStr.ToUpper();
-            return campo.Contains(subStr);
+
+            if(campo.Length < valorMax)
+                return campo.Contains(subStr);
+            else
+                return true;
         }
+        
         // Modificar String campo(sin uso xahora)
         public void ModificarStringCampo(string campo, string str, bool flag = true)
         {
