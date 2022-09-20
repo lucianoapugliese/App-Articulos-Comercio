@@ -49,6 +49,7 @@ namespace TP_WinForm
             }
         }
 
+        //Eventos
         // Evento Selecionar una fila:
         private void dgvArticulos_SelectionChanged(object sender, EventArgs e)
         {
@@ -182,8 +183,8 @@ namespace TP_WinForm
                 throw ex;
             }
         }
-
-        //
+        
+        //Metodos
         // Metodo filtrarRapido:
         public void filtrarRapido()
         {
@@ -243,6 +244,7 @@ namespace TP_WinForm
                 throw ex;
             }
         }
+
         // Metodo Actulizar GridView sobrecarga:
         public void actualizarGridView(List<Articulo> lis)
         {

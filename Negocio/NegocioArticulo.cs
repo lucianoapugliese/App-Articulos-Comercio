@@ -61,7 +61,6 @@ namespace Negocio
             try
             {
                 art.redondear(2);
-                //_accesoDatos.setearQuery($"INSERT INTO ARTICULOS VALUES ('{art._codArticulo}','{art._nombre}', '{art._descripcion}', {art._marca._Id}, {art._categoria._Id}, '{art._urlImagen}', {art._precio})");
                 _accesoDatos.setearQuery($"INSERT INTO ARTICULOS (Codigo, Nombre, Descripcion, IdMarca, IdCategoria, ImagenUrl, Precio) VALUES ('{art._codArticulo}','{art._nombre }', '{art._descripcion }', @idMarca, @idCategoria, '{art._urlImagen}', @precio)");
                 //_accesoDatos.setearQuery($"INSERT INTO ARTICULOS VALUES (@codart, @nombre, @descripcion, @idMarca, @idCategoria, @urlImg, @precio)");
                 //_accesoDatos.setearParametro("@codart", art._codArticulo);

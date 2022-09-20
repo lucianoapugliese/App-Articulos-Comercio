@@ -21,6 +21,7 @@ namespace TP_WinForm
         private NegocioDetalle _negocioDetalle;
         private NegocioArticulo _negocioArticulo;
         private OpenFileDialog _archivo = null;
+        private string _urlString = null;
 
         //CONSTRUCTOR:
         public frmAltaArticulo()
@@ -34,12 +35,6 @@ namespace TP_WinForm
         }
 
         //METODOS:
-        // Evento Boton Cancelar:
-        private void bntCancelar_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
         // Load:
         private void frmAltaArticulo_Load(object sender, EventArgs e)
         {
@@ -70,6 +65,12 @@ namespace TP_WinForm
                 throw ex;
             }
         }
+        
+        // Evento Boton Cancelar:
+        private void bntCancelar_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
 
         // Evento al dejar caja de texto Urlimagen:
         private void txtBoxUrlImagen_Leave(object sender, EventArgs e)
@@ -80,7 +81,7 @@ namespace TP_WinForm
         // Evento boton Aceptar:
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            string urlString = null;
+            _urlString = null;
             _negocioArticulo = new NegocioArticulo();
             try
             {
@@ -90,22 +91,32 @@ namespace TP_WinForm
                 _articulo._descripcion = txtBoxDescripcion.Text;
                 _articulo._precio = Convert.ToDecimal(txtBoxPrecio.Text);
                 _articulo._urlImagen = txtBoxUrlImagen.Text;
-                urlString = txtBoxUrlImagen.Text;
+                _urlString = txtBoxUrlImagen.Text;
                 _articulo._nombre = txtBoxNombre.Text;
                 _articulo._categoria = (Detalle)cboBoxCategoria.SelectedItem;
                 _articulo._marca = (Detalle)cboBoxMarca.SelectedItem;
 
                 if(_articulo._Id == 0)
                 {
+                    if (Validar(_articulo._codArticulo, "000"))
+                    {
+                        MessageBox.Show("Campo Codigo de Articulo incorrecto");
+                        return;
+                    }
                     _negocioArticulo.agregarArticulo(_articulo);
                     MessageBox.Show("Articulo Agregado");
                 }
                 else
                 {
+                    if (Validar(_articulo._codArticulo, "000"))
+                    {
+                        MessageBox.Show("Campo Codigo de Articulo incorrecto");
+                        return;
+                    }
                     _negocioArticulo.modificarArticulo(_articulo);
                     MessageBox.Show("Articulo Modificado");
                 }
-                if ( _archivo != null && !(urlString.ToUpper().Contains("HTTP")) )
+                if ( _archivo != null && !(_urlString.ToUpper().Contains("HTTP")) )
                 {
                     guardarImagen(txtBoxUrlImagen.Text, _archivo.SafeFileName);
                 }
@@ -149,7 +160,6 @@ namespace TP_WinForm
             }
         }
 
-
         // Metodo GuardarImagen:
         //     - si string destino es null, guardamos en ruta por defecto, sino usamos su valor como ruta
         public void guardarImagen(string fuente, string nombreArchivo, string destino = null)
@@ -167,6 +177,23 @@ namespace TP_WinForm
             
         }
 
+        // Metodos Validaciones:
+        public bool Validar(string campo, string subStr)
+        {
+            campo.ToUpper();
+            subStr.ToUpper();
+            return campo.Contains(subStr);
+        }
+        // Modificar String campo(sin uso xahora)
+        public void ModificarStringCampo(string campo, string str, bool flag = true)
+        {
+            campo.ToUpper();
+            str.ToUpper();
+            if(flag)
+                _ = campo.Contains(str) ? "" : campo;
+            else
+                _ = !campo.Contains(str) ? "" : campo;
+        }
 
     }//fin form
 }
