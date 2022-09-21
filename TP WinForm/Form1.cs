@@ -32,7 +32,7 @@ namespace TP_WinForm
         private List<Articulo> listAux;
         private frmAltaArticulo frmAltaArticulo;
         private string filtroRapido;
-        private string filtroBusqueda;
+        private string filtroBusqueda = null;
 
         //METODOS:
         // Load:
@@ -171,16 +171,19 @@ namespace TP_WinForm
         // Evento Boton Busqueda:
         private void btnBusqueda_Click(object sender, EventArgs e)
         {
-            try
+            if (filtroBusqueda != null)
             {
-                decimal filNum = numFiltro.Value; 
-                negocioArticulo = new NegocioArticulo();
-                actualizarGridView( negocioArticulo.busquedaFiltrada(artBusqueda, filNum, filtroBusqueda) );
-                
-            }
-            catch (Exception ex)
-            {
-                throw ex;
+                try
+                {
+                    decimal filNum = numFiltro.Value;
+                    negocioArticulo = new NegocioArticulo();
+                    actualizarGridView(negocioArticulo.busquedaFiltrada(artBusqueda, filNum, filtroBusqueda));
+
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
             }
         }
         
