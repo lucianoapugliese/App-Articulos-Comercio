@@ -90,7 +90,7 @@ namespace TP_WinForm
 
                 _articulo._codArticulo = txtBoxCodigoArticulo.Text;
                 _articulo._descripcion = txtBoxDescripcion.Text;
-                _articulo._precio = Convert.ToDecimal(txtBoxPrecio.Text);
+                validarPrecio(); // solo permite cargar en _articuli._precio un valor decimal
                 _articulo._urlImagen = txtBoxUrlImagen.Text;
                 _urlString = txtBoxUrlImagen.Text;
                 _articulo._nombre = txtBoxNombre.Text;
@@ -99,9 +99,10 @@ namespace TP_WinForm
 
                 if(_articulo._Id == 0)
                 {
-                    if ( validar(_articulo._codArticulo, "", 3) ) // si da true, quiere decir que el campo contenia el string parametro o era mayor al numero parametro
+                    // Si da true, quiere decir que el campo contenia el string parametro o era mayor al numero parametro
+                    if ( validar(_articulo._codArticulo, "", 3) && validar(_articulo._nombre, 30) && validar(_articulo._nombre, 100) )
                     {
-                        MessageBox.Show("Campo Incorrecto\nRecuerde:\nSolo codigos con numeros, letras y menor a 3 \nPrecio solo numerico");
+                        MessageBox.Show("Campo Incorrecto\nRecuerde:\nSolo codigos con numeros, letras y menor a 3 \nPrecio solo numerico\nNombre no mayor a 30 caracterez, descripcion no mayor a 100");
                         return;
                     }
                     _negocioArticulo.agregarArticulo(_articulo);
@@ -109,9 +110,9 @@ namespace TP_WinForm
                 }
                 else
                 {
-                    if (validar(_articulo._codArticulo, "", 3))
+                    if ( validar(_articulo._codArticulo, "", 3) && validar(_articulo._nombre, 30) && validar(_articulo._nombre, 100) )
                     {
-                        MessageBox.Show("Campo incorrecto\nRecuerde:\nSolo codigos con numeros, letras y menor a 3 \nPrecio solo numerico");
+                        MessageBox.Show("Campo incorrecto\nRecuerde:\nSolo codigos con numeros, letras y menor a 3 \nPrecio solo numerico\nNombre no mayor a 30 caracterez, descripcion no mayor a 100");
                         return;
                     }
                     _negocioArticulo.modificarArticulo(_articulo);
@@ -171,8 +172,10 @@ namespace TP_WinForm
             destino = destino ?? ConfigurationManager.AppSettings["images-folder"] + nombreArchivo;
             try
             {
-                if ( !File.Exists(destino) ) File.Copy(fuente, destino);
-                else MessageBox.Show("Imagen no guardada, ya existe");
+                if ( !File.Exists(destino) ) 
+                    File.Copy(fuente, destino);
+                else 
+                    MessageBox.Show("Imagen no guardada, ya existe");
             }
             catch (Exception ex)
             {
@@ -181,7 +184,7 @@ namespace TP_WinForm
             
         }
 
-        // Metodos Validaciones:
+        // -- Metodos Validaciones -- :
         public bool validar(string campo, string subStr, int valorMax)
         {
             string caracter = "°!%&/\"()=?·$?¿";
@@ -197,7 +200,24 @@ namespace TP_WinForm
             else    
                 return false;
         }
-        //
+        public bool validar(string campo, int valorMax)
+        {
+            if (campo.Length > valorMax)
+                return true;
+            else
+                return false;
+        }
+        public void validarPrecio()
+        { 
+            try
+            {
+                _articulo._precio = Convert.ToDecimal(txtBoxPrecio.Text);
+            }
+            catch
+            {
+                MessageBox.Show("El precio tiene que ser numerico");
+            }
+        }
         
         // Modificar String campo(sin uso x ahora)
         public void ModificarStringCampo(string campo, string str, bool flag = true)
