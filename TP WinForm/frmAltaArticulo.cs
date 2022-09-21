@@ -99,9 +99,9 @@ namespace TP_WinForm
 
                 if(_articulo._Id == 0)
                 {
-                    if ( validar(_articulo._codArticulo, "000", 3) ) // si da true, quiere decir que el campo contenia el string parametro o era mayor al numero parametro
+                    if ( validar(_articulo._codArticulo, "", 3) ) // si da true, quiere decir que el campo contenia el string parametro o era mayor al numero parametro
                     {
-                        MessageBox.Show("Campo Codigo de Articulo incorrecto");
+                        MessageBox.Show("Campo Incorrecto\nRecuerde:\nSolo codigos con numeros, letras y menor a 3 \nPrecio solo numerico");
                         return;
                     }
                     _negocioArticulo.agregarArticulo(_articulo);
@@ -109,9 +109,9 @@ namespace TP_WinForm
                 }
                 else
                 {
-                    if (validar(_articulo._codArticulo, "000", 3))
+                    if (validar(_articulo._codArticulo, "", 3))
                     {
-                        MessageBox.Show("Campo Codigo de Articulo incorrecto");
+                        MessageBox.Show("Campo incorrecto\nRecuerde:\nSolo codigos con numeros, letras y menor a 3 \nPrecio solo numerico");
                         return;
                     }
                     _negocioArticulo.modificarArticulo(_articulo);
@@ -183,16 +183,19 @@ namespace TP_WinForm
 
         // Metodos Validaciones:
         public bool validar(string campo, string subStr, int valorMax)
-        { 
+        {
+            string caracter = "°!%&/\"()=?·$?¿";
             campo.ToUpper();
             subStr.ToUpper();
 
-            
-            
-            if(campo.Length <= valorMax)
-                return campo.Contains(subStr);
-            else
+            if (caracter.Intersect(campo).Count() > 0)
                 return true;
+            else if (campo.Length > valorMax)
+                return true;
+            else if (subStr != "")
+                return campo.Contains(subStr);
+            else    
+                return false;
         }
         //
         
