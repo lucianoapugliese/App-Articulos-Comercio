@@ -104,7 +104,7 @@ namespace TP_WinForm
                     // Si da true, quiere decir que el campo contenia el string parametro o era mayor al numero parametro
                     if ( validar(_articulo._codArticulo, 3) || validar(_articulo._nombre, 30) || validar(_articulo._nombre, 100))
                     {
-                        MessageBox.Show("Campo Incorrecto\nRecuerde:\nSolo codigos con numeros, letras y menor a 3 \nPrecio solo numerico\nNombre no mayor a 30 caracterez, descripcion no mayor a 100");
+                        MessageBox.Show("Campo Incorrecto\nRecuerde:\nSolo codigos con numeros, letras y menor a 3 \nPrecio solo numerico\nNombre no mayor a 30 caracteres, descripcion no mayor a 100");
                         return;
                     }
                     _negocioArticulo.agregarArticulo(_articulo);
@@ -114,7 +114,7 @@ namespace TP_WinForm
                 {
                     if ( validar(_articulo._codArticulo, 3) || validar(_articulo._nombre, 30) || validar(_articulo._nombre, 100) )
                     {
-                        MessageBox.Show("Campo incorrecto\nRecuerde:\nSolo codigos con numeros, letras y menor a 3 \nPrecio solo numerico\nNombre no mayor a 30 caracterez, descripcion no mayor a 100");
+                        MessageBox.Show("Campo incorrecto\nRecuerde:\nSolo codigos con numeros, letras y menor a 3 \nPrecio solo numerico\nNombre no mayor a 30 caracteres, descripcion no mayor a 100");
                         return;
                     }
                     _negocioArticulo.modificarArticulo(_articulo);
