@@ -1,14 +1,8 @@
 ﻿using Dominio;
 using Negocio;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Configuration;
 
@@ -90,9 +84,17 @@ namespace TP_WinForm
 
                 _articulo._codArticulo = txtBoxCodigoArticulo.Text;
                 _articulo._descripcion = txtBoxDescripcion.Text;
-                validarPrecio(); // solo permite cargar en _articuli._precio un valor decimal
                 _articulo._urlImagen = txtBoxUrlImagen.Text;
                 _urlString = txtBoxUrlImagen.Text;
+                if(validarPrecio(txtBoxPrecio.Text))
+                {
+                    MessageBox.Show("Campo Incorrecto\nRecuerde:\nSolo codigos con numeros, letras y menor a 3 \nPrecio solo numerico\nNombre no mayor a 30 caracterez, descripcion no mayor a 100");
+                    return;
+                }
+                else
+                {
+                    _articulo._precio = decimal.Parse(txtBoxPrecio.Text);
+                }
                 _articulo._nombre = txtBoxNombre.Text;
                 _articulo._categoria = (Detalle)cboBoxCategoria.SelectedItem;
                 _articulo._marca = (Detalle)cboBoxMarca.SelectedItem;
@@ -100,7 +102,7 @@ namespace TP_WinForm
                 if(_articulo._Id == 0)
                 {
                     // Si da true, quiere decir que el campo contenia el string parametro o era mayor al numero parametro
-                    if ( validar(_articulo._codArticulo, "", 3) && validar(_articulo._nombre, 30) && validar(_articulo._nombre, 100) )
+                    if ( validar(_articulo._codArticulo, 3) || validar(_articulo._nombre, 30) || validar(_articulo._nombre, 100))
                     {
                         MessageBox.Show("Campo Incorrecto\nRecuerde:\nSolo codigos con numeros, letras y menor a 3 \nPrecio solo numerico\nNombre no mayor a 30 caracterez, descripcion no mayor a 100");
                         return;
@@ -110,7 +112,7 @@ namespace TP_WinForm
                 }
                 else
                 {
-                    if ( validar(_articulo._codArticulo, "", 3) && validar(_articulo._nombre, 30) && validar(_articulo._nombre, 100) )
+                    if ( validar(_articulo._codArticulo, 3) || validar(_articulo._nombre, 30) || validar(_articulo._nombre, 100) )
                     {
                         MessageBox.Show("Campo incorrecto\nRecuerde:\nSolo codigos con numeros, letras y menor a 3 \nPrecio solo numerico\nNombre no mayor a 30 caracterez, descripcion no mayor a 100");
                         return;
@@ -181,42 +183,31 @@ namespace TP_WinForm
             {
                 throw ex;
             }
-            
         }
 
         // -- Metodos Validaciones -- :
-        public bool validar(string campo, string subStr, int valorMax)
+        public bool validar(string campo, int valorMax)
         {
             string caracter = "°!%&/\"()=?·$?¿";
             campo.ToUpper();
-            subStr.ToUpper();
-
             if (caracter.Intersect(campo).Count() > 0)
                 return true;
             else if (campo.Length > valorMax)
                 return true;
-            else if (subStr != "")
-                return campo.Contains(subStr);
-            else    
-                return false;
-        }
-        public bool validar(string campo, int valorMax)
-        {
-            if (campo.Length > valorMax)
+            else if (string.IsNullOrWhiteSpace(campo))
                 return true;
             else
                 return false;
         }
-        public void validarPrecio()
-        { 
-            try
-            {
-                _articulo._precio = Convert.ToDecimal(txtBoxPrecio.Text);
-            }
-            catch
-            {
-                MessageBox.Show("El precio tiene que ser numerico");
-            }
+        public bool validarPrecio(string campo)
+        {
+            string chars = "°!%&/\"()=?·$?¿ABCDEFGHIJKLMNROPQRSTUVWXYZabcdefghijklrmnopqrstuvwxyz";
+            if (chars.Intersect(campo).Count() > 0)
+                return true;
+            else if (string.IsNullOrWhiteSpace(campo))
+                return true;
+            else
+                return false;
         }
         
         // Modificar String campo(sin uso x ahora)

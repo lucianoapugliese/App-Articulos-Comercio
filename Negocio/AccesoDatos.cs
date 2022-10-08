@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data.SqlClient;
-using System.Windows.Forms;
 using System.Configuration;
 
 namespace Negocio
@@ -24,8 +19,9 @@ namespace Negocio
         //CONSTRUCTOR:
         public AccesoDatos(string cadenaConexion = "server=.; database = CATALOGO_DB; integrated security = true")
         {
-            //cadenaConexion="server =.\\SQLEXPRESS01; database = CATALOGO_DB; integrated security = true";
             // Luchoo! para conectarte vs cambia "serverDef1" por "serverDef2"...
+            // server por defecto serverDef1 = . 
+            // sgundo server por defecto serverDef3 = .\\SQLEXPRESS
             string server = ConfigurationManager.AppSettings["serverDef1"];
             cadenaConexion = "server="+server+";database = CATALOGO_DB; integrated security = true";
             try
@@ -34,9 +30,13 @@ namespace Negocio
                 _conexion.Open();
                 _conexion.Close();
             }
-            catch
+            catch(SqlException ex)
             {
-                MessageBox.Show("Ocurrio un error al conectar con la base de datos");
+                throw ex;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
             }
             _command = new SqlCommand();
         }

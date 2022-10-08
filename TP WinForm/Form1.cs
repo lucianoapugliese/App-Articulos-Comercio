@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Dominio;
 using Negocio;
@@ -304,7 +298,7 @@ namespace TP_WinForm
             try
             {
                 // El MessageBox maneja estas alertas asi:
-                DialogResult respuesta = MessageBox.Show("Desea Eliminar el Pokemon seleccionado?", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                DialogResult respuesta = MessageBox.Show("Desea Eliminar el Articulo seleccionado?", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
                 if (respuesta == DialogResult.Yes)
                 {
                     articulo = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
